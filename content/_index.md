@@ -9,6 +9,7 @@ in my personal google drive, but some small portions ill put here :)
 
 in [blog]({{< relref "blog" >}}) you can find some thoughts, openions and other shit you don't care about all in one place!
 
+> "I don't have bugs, I have complex typos" - Daniel Sonbolian
 
 #### who tf am I?!!1
 edgy programmer, how edgy?
@@ -27,5 +28,4 @@ ohh and did I mention already that I use arch BTW?
 
 come, follow me on github, I won't spam your feed and I won't return a follow [come come, click](https://github.com/dsal3389)
 
-> "I don't have bugs, I have complex typos" - Daniel Sonbolian
 

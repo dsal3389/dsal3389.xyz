@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'http://dsal3389.xyz'
 languageCode = 'en-us'
 title = 'dsal3389'
 theme = 'hugo-simple'

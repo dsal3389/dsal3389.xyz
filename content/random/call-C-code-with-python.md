@@ -4,7 +4,7 @@ date = 2022-05-22T17:13:48+03:00
 +++
 
 ### before you read, its good to know:
- * [shared C libraries]({{< relref "/learning/shared-c-libraries" >}})
+ * [shared C libraries]({{< relref "/random/shared-c-libraries" >}})
 
 ---
 
@@ -14,7 +14,7 @@ sometimes we may want to call C functions from python, because python may be:
  * wont have those functions
  * we dont want to rewrite those functions again in python
 
-with `ctypes` we can import [shared C libraries]({{< relref "/learning/shared-c-libraries" >}}), this give us almost all libc functionality
+with `ctypes` we can import [shared C libraries]({{< relref "/random/shared-c-libraries" >}}), this give us almost all libc functionality
 (or any other shared library that we may want to load)
 
 ## how C and python handle the same data type

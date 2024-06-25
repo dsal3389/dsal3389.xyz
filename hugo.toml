@@ -1,7 +1,7 @@
 baseURL = 'http://dsal3389.xyz'
 languageCode = 'en-us'
 title = 'dsal3389'
-theme = 'hugo-simple'
+theme = 'hugo-dead-simple'
 
 [permalinks]
 blog = "/:slugorfilename/"
@@ -21,7 +21,7 @@ pageRef = 'blog'
 weight = 20
 
 [[menu.main]]
-name = 'learning'
-pageRef = 'learning'
+name = 'random'
+pageRef = 'random'
 weight = 30
 

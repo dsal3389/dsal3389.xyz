@@ -1,3 +1,9 @@
 [submodule "themes/hugo-simple"]
 	path = themes/hugo-simple
 	url = git@github.com:dsal3389/hugo-simple.git
+[submodule "themes/dsal3389.xyz"]
+	path = themes/dsal3389.xyz
+	url = git@github.com:dsal3389/dsal3389.xyz.git
+[submodule "themes/hugo-dead-simple"]
+	path = themes/hugo-dead-simple
+	url = git@github.com:barklan/hugo-dead-simple.git

@@ -1,7 +1,7 @@
 ---
 title: "Python Caching"
 date: 2024-08-13T19:35:22+03:00
-draft: false
+draft: true
 ---
 
 # python caching

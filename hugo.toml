@@ -1,27 +1,24 @@
 baseURL = 'http://dsal3389.xyz'
 languageCode = 'en-us'
 title = 'dsal3389'
-theme = 'hugo-dead-simple'
+theme = 'hugo-bearcub'
+
+enableRobotsTXT = true
 
 [permalinks]
 blog = "/:slugorfilename/"
-tags = "/blog/:slug"
-
-[params]
-hideMadeWithLine = true
+tags = "/post/:slug"
 
 [[menu.main]]
-name = 'Home'
+name = 'home'
 pageRef = '/'
 weight = 10
 
 [[menu.main]]
-name = 'Blog'
-pageRef = 'blog'
+name = 'posts'
+pageRef = 'posts'
 weight = 20
 
-[[menu.main]]
-name = 'random'
-pageRef = 'random'
-weight = 30
-
+[params]
+  title = "test"
+  description = "Daniel Sonolian's website"

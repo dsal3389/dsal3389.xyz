@@ -5,11 +5,11 @@ draft: true
 ---
 
 # python caching
-after encountering an issue with python [caching method causes instances to live forever](https://github.com/python/cpython/issues/122827), I dig in to see 
+after encountering an issue with python [caching method causes instances to live forever](https://github.com/python/cpython/issues/122827), I dig in to see
 why it happens and how I can resolve this, there is also some cool code there that is worth noting.
 
 ## why instances live forever when use python cache?
-all python cache function does it wraps the original function, gets the passed *args and **kwargs to the function 
+all python cache function does it wraps the original function, gets the passed *args and **kwargs to the function
 and puts them in a tuple (which is hashable), then that tuple is used as dict key, without hashing, so all
 the elements inside the tuple are alive
 
@@ -27,14 +27,14 @@ def _example_cache_wrapper(*args, **kwargs):  # our self will be included in the
   ...
 ```
 
-so our cache dict would look like this 
+so our cache dict would look like this
 ```py
 {
   (<Main.Foo at 0x...>, 1, 5, ("name", "foo")): ...,
   (<Main.Foo> at 0x..., ("name": "bob")): ...
 }
 ```
-you see it? the reference to out instance is in our dict, causing the instance reference count 
+you see it? the reference to out instance is in our dict, causing the instance reference count
 to never reach zero until the cache entry is removed.
 
 ## why not just hash the tuple?
@@ -62,7 +62,7 @@ in the hopes of fixing it, I wrote [this library](https://github.com/dsal3389/ca
 
 ## cool circular queue
 reading the code of `cache` and trying to figure out and understand how they put limit on a dict
-and how they know which entry in the dict is the oldest, I encountered a structure I wasn't 
+and how they know which entry in the dict is the oldest, I encountered a structure I wasn't
 familiar with, the circular queue!, they use it to know which cache entry is the oldest and which
 one is the newest
 
@@ -192,7 +192,7 @@ lets break this circular queue
 root = []
 root[:] = [root, root, None, None]
 ```
-like linked lists, we need `prev` and `next`, here the first argument `root[0]` is `PREV` and `root[1]` is `NEXT`, we 
+like linked lists, we need `prev` and `next`, here the first argument `root[0]` is `PREV` and `root[1]` is `NEXT`, we
 can see both `PREV` and `NEXT` pointing to theselves
 ```py
 print(id(root)) #  1000
@@ -262,10 +262,10 @@ def wrapper(*args, **kwds):
 to understand it better, it would be easier to jump to the last `else` block at the end of the function
 where we add new items to the list
 
-it is important to note that `root[PREV]` will always point on the last added item while 
+it is important to note that `root[PREV]` will always point on the last added item while
 `root[NEXT]` points on the oldest item.
 
-we insert a new `node` between the current last item and the root, causing 
+we insert a new `node` between the current last item and the root, causing
 our node to be the last item in the list
 ```py
 last = root[PREV]  # take the current last node
@@ -289,14 +289,14 @@ things becomes easier to understand when we add another item to the list, and it
 ```console
    ,----------------------,
   V                        \
-node1 -> node2 <- root -> node1 
+node1 -> node2 <- root -> node1
 ```
 we inserted a new item `node2`, now `root[NEXT]` which is `node1` is the oldest entry, while `root[PREV]` is
-the newest entry and it points to `node2`, our list will keep growing until our `cache` dict reaches 
+the newest entry and it points to `node2`, our list will keep growing until our `cache` dict reaches
 a certain length.
 
 
-in case our cache length hit the max size, we stop adding new items to the list, and start 
+in case our cache length hit the max size, we stop adding new items to the list, and start
 replacing nodes with the new cache information because remember that `root[PREV]` is always
 the newest entry, we also need to delete the oldest entry.
 
@@ -309,7 +309,7 @@ oldroot[KEY] = key
 oldroot[RESULT] = result
 ```
 
-now the `oldroot` is the node that we replace instead of adding, and now we move the root to the next 
+now the `oldroot` is the node that we replace instead of adding, and now we move the root to the next
 node, causing the `oldroot` to be `root[PREV]` which is the newest entry in the list, in that step
 we also clear the new root stored cache information because it the `root` should not hold information, only
 point to the oldest and newest entries
@@ -345,5 +345,3 @@ link[NEXT] = root  # update the next in our node
 ```
 
 thats it, I thought this circular queue is cool
-
-

@@ -1,6 +1,3 @@
-[submodule "themes/dsal3389.xyz"]
-	path = themes/dsal3389.xyz
-	url = git@github.com:dsal3389/dsal3389.xyz.git
-[submodule "themes/hugo-bearcub"]
-	path = themes/hugo-bearcub
-	url = git@github.com:clente/hugo-bearcub.git
+[submodule "themes/hugo-theme-til"]
+	path = themes/hugo-theme-til
+	url = git@github.com:michenriksen/hugo-theme-til.git

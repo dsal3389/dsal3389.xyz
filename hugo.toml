@@ -1,24 +1,21 @@
 baseURL = 'http://dsal3389.xyz'
 languageCode = 'en-us'
 title = 'dsal3389'
-theme = 'hugo-bearcub'
+theme = 'hugo-theme-til'
 
 enableRobotsTXT = true
+showGraph = true
 
-[permalinks]
-blog = "/:slugorfilename/"
-tags = "/post/:slug"
+[params.author]
+  name = 'Daniel Sonbolian'
+  email = 'dsal3389@gmail.com'
 
-[[menu.main]]
-name = 'home'
-pageRef = '/'
-weight = 10
+[params.home]
+  showRecentPosts = true
+  recentPostsLimit = 3
 
-[[menu.main]]
-name = 'posts'
-pageRef = 'posts'
-weight = 20
+[params.footer]
+  showthemeCredit = true
 
-[params]
-  title = "test"
-  description = "Daniel Sonolian's website"
+[params.robotstxt]
+  blockAI = true

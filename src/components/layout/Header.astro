@@ -12,13 +12,13 @@ import { site } from "@/site.config";
     <nav class="flex items-center gap-1 max-sm:order-3 max-sm:col-span-full max-sm:justify-center max-sm:pb-2.5" aria-label="Main navigation">
         {
         site.nav.map((item) => (
-            <a class="rounded-full px-3 py-2 text-[0.95rem] font-extrabold text-muted no-underline hover:text-text max-sm:px-2.5 max-sm:text-[0.88rem]" href={item.href}>
+            <a class="px-3 py-2 text-[0.95rem] font-extrabold text-muted no-underline hover:text-text max-sm:px-2.5 max-sm:text-[0.88rem]" href={item.href}>
             {item.label}
             </a>
         ))
         }
     </nav>
-    <button class="theme-toggle h-10 w-10 cursor-pointer place-items-center rounded-full border border-line bg-surface text-text ml-3" type="button" aria-label="Toggle color theme" title="Toggle color theme">
+    <button class="theme-toggle h-10 w-10 cursor-pointer place-items-center border border-line bg-surface text-text ml-3" type="button" aria-label="Toggle color theme" title="Toggle color theme">
         <Sun class="theme-icon sun-icon" aria-hidden="true" size={18} stroke-width={2.4} />
         <Moon class="theme-icon moon-icon" aria-hidden="true" size={18} stroke-width={2.4} />
     </button>

@@ -17,34 +17,32 @@
 
 :root {
   color-scheme: light;
-  --bg: #fbf1c7;
-  --surface: #f2e5bc;
-  --surface-strong: #ebdbb2;
-  --text: #3c3836;
-  --muted: #7c6f64;
-  --line: #d5c4a1;
-  --accent: #9d0006;
-  --accent-2: #427b58;
-  --accent-3: #79740e;
-  --shadow: 0 20px 70px rgba(60, 56, 54, 0.14);
-  --font-sans:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --bg: #f7f1df;
+  --surface: #fff9e8;
+  --surface-strong: eggshell;
+  --text: #252a22;
+  --muted: #687165;
+  --line: #d9cfb5;
+  --accent: #2f6f3e;
+  --accent-2: #2f7075;
+  --accent-3: #8a6200;
+  --shadow: 0 20px 70px rgba(37, 42, 34, 0.12);
+  --font-sans: Monaco, "Lucida Console", "Courier New", ui-monospace, monospace;
+  --font-mono: Monaco, "Lucida Console", "Courier New", ui-monospace, monospace;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #282828;
-  --surface: #32302f;
-  --surface-strong: #3c3836;
-  --text: #ebdbb2;
-  --muted: #a89984;
-  --line: #504945;
-  --accent: #fb4934;
-  --accent-2: #8ec07c;
-  --accent-3: #b8bb26;
-  --shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+  --bg: #101416;
+  --surface: #171d20;
+  --surface-strong: #20282b;
+  --text: #d7decf;
+  --muted: #8f9a8d;
+  --line: #303a3d;
+  --accent: #9ccf9d;
+  --accent-2: #7fb8bb;
+  --accent-3: #d4b26f;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -104,7 +102,6 @@ textarea {
 
 .tag {
   border: 1px solid var(--line);
-  border-radius: 999px;
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.78rem;
@@ -156,14 +153,12 @@ textarea {
 
 .prose pre {
   border: 1px solid var(--line);
-  border-radius: 8px;
   overflow-x: auto;
   padding: 18px;
 }
 
 :root[data-theme="light"] .astro-code,
 :root[data-theme="light"] .astro-code span {
-  background-color: var(--shiki-light-bg) !important;
   color: var(--shiki-light) !important;
   font-style: var(--shiki-light-font-style) !important;
   font-weight: var(--shiki-light-font-weight) !important;
@@ -172,11 +167,18 @@ textarea {
 
 :root[data-theme="dark"] .astro-code,
 :root[data-theme="dark"] .astro-code span {
-  background-color: var(--shiki-dark-bg) !important;
   color: var(--shiki-dark) !important;
   font-style: var(--shiki-dark-font-style) !important;
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+.astro-code {
+  background-color: var(--surface) !important;
+}
+
+.astro-code span {
+  background-color: transparent !important;
 }
 
 .prose code {
@@ -187,7 +189,6 @@ textarea {
 .prose :not(pre) > code {
   background: var(--surface-strong);
   border: 1px solid var(--line);
-  border-radius: 6px;
   padding: 0.1em 0.35em;
 }
 
@@ -200,6 +201,5 @@ textarea {
 
 .prose img {
   border: 1px solid var(--line);
-  border-radius: 8px;
   margin: 28px 0;
 }

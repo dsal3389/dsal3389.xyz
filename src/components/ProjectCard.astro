@@ -10,7 +10,7 @@ interface Props {
 const { href, title, description, tags = [], heroImage } = Astro.props;
 ---
 
-<a class="grid min-h-full grid-rows-[auto_1fr] overflow-hidden rounded-lg border border-line bg-surface text-inherit no-underline shadow-site" href={href}>
+<a class="grid min-h-full grid-rows-[auto_1fr] overflow-hidden border border-line bg-surface text-inherit no-underline shadow-site" href={href}>
   {heroImage && <img class="aspect-video w-full object-cover" src={heroImage} alt="" />}
   <div class="p-[22px]">
     <h3 class="m-0 mb-2.5 text-[1.45rem] leading-[1.1]">{title}</h3>

@@ -1,20 +1,24 @@
 ---
-import { Mail, Rss } from "@lucide/astro";
+import { Mail, Rss, GitPullRequest, ExternalLink } from "@lucide/astro";
 import { site } from "@/site.config";
 ---
 
 <footer class="border-t border-line py-[34px]">
   <div class="mx-auto flex max-w-[1120px] items-center justify-between gap-5 px-6 max-sm:items-start max-sm:flex-col max-[760px]:px-[18px]">
-    <p class="m-0 text-muted">{site.name} builds fast, durable software and writes the useful parts down.</p>
+    <p class="m-0 text-muted">{site.name}</p>
     <div class="flex gap-3.5">
-      <a class="inline-flex items-center gap-1.5 font-extrabold text-text" href={`mailto:${site.email}`}>
-        <Mail aria-hidden="true" size={17} stroke-width={2.4} />
-        Email
-      </a>
-      <a class="inline-flex items-center gap-1.5 font-extrabold text-text" href="/rss.xml">
-        <Rss aria-hidden="true" size={17} stroke-width={2.4} />
-        RSS
-      </a>
+        <a class="inline-flex items-center gap-1.5 font-extrabold text-text" href="/rss.xml">
+            <Rss aria-hidden="true" size={17} stroke-width={2.4} />
+            RSS
+        </a>
+        <a class="inline-flex items-center gap-1.5 font-extrabold text-text" href="https://github.com/dsal3389/">
+            <GitPullRequest aria-hidden="true" size={17} stroke-width={2.4} />
+            Github
+        </a>
+        <a class="inline-flex items-center gap-1.5 font-extrabold text-text" href="https://www.linkedin.com/in/dsal3389/">
+            <ExternalLink aria-hidden="true" size={17} stroke-width={2.4} />
+            Linkedin
+        </a>
     </div>
   </div>
 </footer>

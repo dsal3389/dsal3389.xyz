@@ -17,14 +17,14 @@ const formattedDate = date.toLocaleDateString("en", {
 });
 ---
 
-<article class="border-line border p-4 rounded-lg">
+<article class="border-line border p-8 bg-surface shadow-site">
     <a href={href}>
-        <div class="grid grid-cols-[150px_1fr] pb-4 no-underline max-sm:grid-cols-1" >
+        <div class="grid grid-cols-[1fr_130px] pb-4 no-underline max-sm:grid-cols-1" >
+            <h3 class="m-0 mb-2 mr-4 text-[clamp(1.35rem,3vw,2.4rem)] leading-[1.05]">{title}</h3>
             <time class="inline-flex items-center gap-[7px] font-mono text-[0.82rem] font-extrabold text-accent-2" datetime={date.toISOString()}>
-            <Calendar aria-hidden="true" size={15} stroke-width={2.4} />
+                <Calendar aria-hidden="true" size={15} stroke-width={2.4} />
                 {formattedDate}
             </time>
-            <h3 class="m-0 mb-2 text-[clamp(1.35rem,3vw,2.4rem)] leading-[1.05]">{title}</h3>
         </div>
           {tags.length > 0 && (
             <div class="pb-4">
@@ -33,6 +33,6 @@ const formattedDate = date.toLocaleDateString("en", {
                 </ul>
             </div>
           )}
-        <p class="m-0 mb-3.5 max-w-[720px] text-muted">{description}</p>
+        <p class="m-0 max-w-[720px] text-muted">{description}</p>
     </a>
 </article>

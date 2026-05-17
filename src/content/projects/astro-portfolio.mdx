@@ -1,0 +1,30 @@
+---
+title: "Astro portfolio system"
+description: "A Markdown-first portfolio and blog foundation with typed content, custom components, and clean static output."
+date: 2026-05-17
+tags: ["astro", "content", "portfolio"]
+heroImage: "/images/project-terminal.svg"
+featured: true
+order: 1
+---
+
+import Callout from "../../components/content/Callout.astro";
+import MetricStrip from "../../components/content/MetricStrip.astro";
+
+This project is the site foundation itself: a portfolio that treats writing and project case studies as first-class content.
+
+<MetricStrip
+  items={[
+    { value: "MDX", label: "content format" },
+    { value: "SSG", label: "deployment model" },
+    { value: "Typed", label: "frontmatter schema" }
+  ]}
+/>
+
+## Why this shape
+
+The site separates content, layout, and reusable prose components. That keeps writing simple while still allowing richer blocks when a post needs them.
+
+<Callout title="Customize next" tone="note">
+Replace the placeholder name, email, and artwork in `src/site.config.ts` and `public/images`.
+</Callout>

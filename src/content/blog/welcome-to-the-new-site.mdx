@@ -1,0 +1,44 @@
+---
+title: "Welcome to the new site"
+description: "A short example post showing Markdown, local images, and Astro components inside MDX."
+date: 2026-05-17
+tags: ["astro", "mdx", "notes"]
+heroImage: "/images/blog-workspace.svg"
+---
+
+import Callout from "../../components/content/Callout.astro";
+import MetricStrip from "../../components/content/MetricStrip.astro";
+
+This post is written as MDX, so it still feels like Markdown but can use custom components when the post needs richer structure.
+
+![A desk with notes and an editor](/images/blog-workspace.svg)
+
+<Callout title="Writing workflow" tone="ship">
+Write normal Markdown first. Reach for MDX components only when the content benefits from structure, emphasis, or reusable visual treatment.
+</Callout>
+
+## What this setup gives you
+
+- Local files in `src/content/blog`
+- Typed frontmatter through Astro content collections
+- Markdown images with normal `![alt](path)` syntax
+- Custom components imported directly into posts
+- RSS and sitemap output during build
+
+<MetricStrip
+  items={[
+    { value: "0 JS", label: "for static article content" },
+    { value: "MDX", label: "for custom post sections" },
+    { value: "RSS", label: "for subscribers" }
+  ]}
+/>
+
+## Code still looks good
+
+```ts
+type PostStatus = "draft" | "published";
+
+export function canPublish(status: PostStatus) {
+  return status === "published";
+}
+```

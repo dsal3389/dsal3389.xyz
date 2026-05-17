@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+.git
+.gitmodules
+Dockerfile
+.dockerignore
+npm-debug.log

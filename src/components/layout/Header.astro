@@ -1,0 +1,39 @@
+---
+import { Moon, Sun } from "@lucide/astro";
+import { site } from "@/site.config";
+---
+
+<header class="flex sticky top-0 z-20 min-h-[72px] items-center border-b border-line bg-bg/85 px-6 backdrop-blur-[18px] max-sm:gap-3 max-sm:px-3.5">
+  <a class="font-mono font-extrabold no-underline" href="/" aria-label={`${site.name} home`}>
+    <span>{site.handle}</span>
+  </a>
+  <div class="flex flex-1"></div>
+  <div class="flex">
+    <nav class="flex items-center gap-1 max-sm:order-3 max-sm:col-span-full max-sm:justify-center max-sm:pb-2.5" aria-label="Main navigation">
+        {
+        site.nav.map((item) => (
+            <a class="rounded-full px-3 py-2 text-[0.95rem] font-extrabold text-muted no-underline hover:text-text max-sm:px-2.5 max-sm:text-[0.88rem]" href={item.href}>
+            {item.label}
+            </a>
+        ))
+        }
+    </nav>
+    <button class="theme-toggle h-10 w-10 cursor-pointer place-items-center rounded-full border border-line bg-surface text-text ml-3" type="button" aria-label="Toggle color theme" title="Toggle color theme">
+        <Sun class="theme-icon sun-icon" aria-hidden="true" size={18} stroke-width={2.4} />
+        <Moon class="theme-icon moon-icon" aria-hidden="true" size={18} stroke-width={2.4} />
+    </button>
+  </div>
+</header>
+
+<script is:inline>
+  const root = document.documentElement;
+  const storedTheme = localStorage.getItem("theme");
+  const preferredDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = storedTheme || (preferredDark ? "dark" : "light");
+
+  document.querySelector(".theme-toggle")?.addEventListener("click", () => {
+    const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+    root.dataset.theme = nextTheme;
+    localStorage.setItem("theme", nextTheme);
+  });
+</script>

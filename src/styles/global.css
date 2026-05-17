@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --shadow-site: var(--shadow);
+}
+
+:root {
+  color-scheme: light;
+  --bg: #fbf1c7;
+  --surface: #f2e5bc;
+  --surface-strong: #ebdbb2;
+  --text: #3c3836;
+  --muted: #7c6f64;
+  --line: #d5c4a1;
+  --accent: #9d0006;
+  --accent-2: #427b58;
+  --accent-3: #79740e;
+  --shadow: 0 20px 70px rgba(60, 56, 54, 0.14);
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #282828;
+  --surface: #32302f;
+  --surface-strong: #3c3836;
+  --text: #ebdbb2;
+  --muted: #a89984;
+  --line: #504945;
+  --accent: #fb4934;
+  --accent-2: #8ec07c;
+  --accent-3: #b8bb26;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+body::selection {
+  background: var(--accent);
+  color: var(--surface-strong);
+}
+
+a {
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, var(--accent), transparent 55%);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tag {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 4px 9px;
+  user-select: none;
+}
+
+.moon-icon {
+  display: none;
+}
+
+:root[data-theme="dark"] .sun-icon {
+  display: none;
+}
+
+:root[data-theme="dark"] .moon-icon {
+  display: block;
+}
+
+.prose {
+  color: var(--text);
+  font-size: 1.07rem;
+  margin-inline: auto;
+  max-width: 760px;
+}
+
+.prose :where(h2, h3) {
+  line-height: 1.1;
+  margin: 2.2em 0 0.65em;
+}
+
+.prose h2 {
+  font-size: 2rem;
+}
+
+.prose h3 {
+  font-size: 1.35rem;
+}
+
+.prose p,
+.prose li {
+  color: color-mix(in srgb, var(--text), var(--muted) 28%);
+}
+
+.prose a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.prose pre {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow-x: auto;
+  padding: 18px;
+}
+
+:root[data-theme="light"] .astro-code,
+:root[data-theme="light"] .astro-code span {
+  background-color: var(--shiki-light-bg) !important;
+  color: var(--shiki-light) !important;
+  font-style: var(--shiki-light-font-style) !important;
+  font-weight: var(--shiki-light-font-weight) !important;
+  text-decoration: var(--shiki-light-text-decoration) !important;
+}
+
+:root[data-theme="dark"] .astro-code,
+:root[data-theme="dark"] .astro-code span {
+  background-color: var(--shiki-dark-bg) !important;
+  color: var(--shiki-dark) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+.prose :not(pre) > code {
+  background: var(--surface-strong);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.1em 0.35em;
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--accent-2);
+  color: var(--muted);
+  margin-inline: 0;
+  padding-left: 18px;
+}
+
+.prose img {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin: 28px 0;
+}

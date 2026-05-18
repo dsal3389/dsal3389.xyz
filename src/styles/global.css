@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --shadow-site: var(--shadow);
+}
+
+:root {
+  color-scheme: light;
+  --bg: #f7f1df;
+  --surface: #fff9e8;
+  --surface-strong: eggshell;
+  --text: #252a22;
+  --muted: #687165;
+  --line: #d9cfb5;
+  --accent: #2f6f3e;
+  --accent-2: #2f7075;
+  --accent-3: #8a6200;
+  --shadow: 0 20px 70px rgba(37, 42, 34, 0.12);
+  --font-sans: Monaco, "Lucida Console", "Courier New", ui-monospace, monospace;
+  --font-mono: Monaco, "Lucida Console", "Courier New", ui-monospace, monospace;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #101416;
+  --surface: #171d20;
+  --surface-strong: #20282b;
+  --text: #d7decf;
+  --muted: #8f9a8d;
+  --line: #303a3d;
+  --accent: #9ccf9d;
+  --accent-2: #7fb8bb;
+  --accent-3: #d4b26f;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+body::selection {
+  background: var(--accent);
+  color: var(--surface-strong);
+}
+
+a {
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, var(--accent), transparent 55%);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tag {
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 4px 9px;
+  user-select: none;
+}
+
+.moon-icon {
+  display: none;
+}
+
+:root[data-theme="dark"] .sun-icon {
+  display: none;
+}
+
+:root[data-theme="dark"] .moon-icon {
+  display: block;
+}
+
+.prose {
+  color: var(--text);
+  font-size: 1.07rem;
+  margin-inline: auto;
+  max-width: 760px;
+}
+
+.prose :where(h2, h3) {
+  line-height: 1.1;
+  margin: 2.2em 0 0.65em;
+}
+
+.prose h2 {
+  font-size: 2rem;
+}
+
+.prose h3 {
+  font-size: 1.35rem;
+}
+
+.prose p,
+.prose li {
+  color: color-mix(in srgb, var(--text), var(--muted) 28%);
+}
+
+.prose a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.prose pre {
+  border: 1px solid var(--line);
+  overflow-x: auto;
+  padding: 18px;
+  margin: 32px 0;
+}
+
+.prose ul {
+  padding-left: 16px;
+  margin: 8px 0;
+  list-style: circle;
+}
+
+.prose hr {
+  margin: 32px 0;
+}
+
+:root[data-theme="light"] .astro-code,
+:root[data-theme="light"] .astro-code span {
+  color: var(--shiki-light) !important;
+  font-style: var(--shiki-light-font-style) !important;
+  font-weight: var(--shiki-light-font-weight) !important;
+  text-decoration: var(--shiki-light-text-decoration) !important;
+}
+
+:root[data-theme="dark"] .astro-code,
+:root[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+.astro-code {
+  background-color: var(--surface) !important;
+}
+
+.astro-code span {
+  background-color: transparent !important;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+.prose :not(pre) > code {
+  background: var(--surface-strong);
+  border: 1px solid var(--line);
+  padding: 0.1em 0.35em;
+}
+
+.prose blockquote {
+  background-color: var(--surface-strong);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent-2);
+  color: var(--muted);
+  margin-inline: 0;
+  padding: 8px;
+  padding-left: 18px;
+  margin: 16px 0;
+}
+
+.prose img {
+  border: 1px solid var(--line);
+  margin: 28px 0;
+}

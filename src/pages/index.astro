@@ -1,0 +1,93 @@
+---
+import { ArrowRight, BookOpen, FolderGit2 } from "@lucide/astro";
+import PostListItem from "@/components/PostListItem.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/site.config";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const projects = (await getCollection("projects"))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+---
+
+<BaseLayout>
+  <section class="relative isolate overflow-hidden border-b border-line bg-surface py-[84px] max-[860px]:min-h-0 max-[860px]:pt-[68px] max-[860px]:pb-[220px]">
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,var(--bg)_0_40%,transparent)] max-[860px]:bg-[linear-gradient(180deg,var(--bg)_0_54%,transparent)]"></div>
+    <div class="mx-auto max-w-[1120px] px-6 max-[760px]:px-[18px]">
+      <h1 class="mt-2.5 mb-6 max-w-[780px] text-[clamp(4rem,14vw,10rem)] leading-[0.85] tracking-normal">{site.name}</h1>
+      <p class="m-0 font-mono text-[0.78rem] font-bold uppercase tracking-normal text-accent-2">"I don't have bugs, I have complex typos" - Me</p>
+      <p class="m-0 max-w-[640px] text-[clamp(1.1rem,2vw,1.45rem)] text-muted">
+          Like code and the art of programming
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a class="inline-flex min-h-11 items-center gap-2.5 border border-text bg-transparent px-[18px] py-2.5 font-extrabold no-underline hover:bg-text hover:text-bg" href="/projects/">
+          <FolderGit2 aria-hidden="true" size={18} stroke-width={2.4} />
+          View projects
+        </a>
+        <a class="inline-flex min-h-11 items-center gap-2.5 border border-line bg-transparent px-[18px] py-2.5 font-extrabold text-text no-underline hover:border-accent hover:text-accent" href="/blog/">
+          <BookOpen aria-hidden="true" size={18} stroke-width={2.4} />
+          Read the blog
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-[72px] max-[760px]:py-[52px]">
+    <div class="mx-auto max-w-[1120px] px-6 max-[760px]:px-[18px]">
+      <div class="mb-7 flex items-end justify-between gap-6 max-[760px]:items-start max-[760px]:flex-col">
+        <div>
+          <p class="m-0 font-mono text-[0.78rem] font-bold uppercase tracking-normal text-accent-2">Projects</p>
+          <h2 class="mt-1.5 mb-0 max-w-[760px] text-[clamp(2rem,4vw,3.5rem)] leading-none">Some of my latest projects.</h2>
+        </div>
+        <a class="inline-flex items-center gap-1.5 font-extrabold" href="/projects/">
+          All projects
+          <ArrowRight aria-hidden="true" size={17} stroke-width={2.4} />
+        </a>
+      </div>
+      <div class="grid grid-cols-3 gap-5 max-[860px]:grid-cols-1">
+        {projects.map((project) => (
+          <ProjectCard
+            href={`/projects/${project.id}/`}
+            title={project.data.title}
+            description={project.data.description}
+            tags={project.data.tags}
+            heroImage={project.data.heroImage}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-line bg-surface-strong py-[72px] max-[760px]:py-[52px]">
+    <div class="mx-auto max-w-[1120px] px-6 max-[760px]:px-[18px]">
+      <div class="mb-7 flex items-end justify-between gap-6 max-[760px]:items-start max-[760px]:flex-col">
+        <div>
+          <p class="m-0 font-mono text-[0.78rem] font-bold uppercase tracking-normal text-accent-2">Posts</p>
+          <h2 class="mt-1.5 mb-0 max-w-[760px] text-[clamp(2rem,4vw,3.5rem)] leading-none">Some posts that I wrote</h2>
+        </div>
+        <a class="inline-flex items-center gap-1.5 font-extrabold" href="/blog/">
+          More
+          <ArrowRight aria-hidden="true" size={17} stroke-width={2.4} />
+        </a>
+      </div>
+      <div>
+        {posts.map((post) => (
+            <div class="m-4">
+                <PostListItem
+                    href={`/blog/${post.id}/`}
+                    title={post.data.title}
+                    description={post.data.description}
+                    date={post.data.date}
+                    tags={post.data.tags}
+                />
+            </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

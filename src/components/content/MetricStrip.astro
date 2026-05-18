@@ -1,0 +1,16 @@
+---
+interface Props {
+  items: Array<{ label: string; value: string }>;
+}
+
+const { items } = Astro.props;
+---
+
+<div class="my-7 grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-3">
+  {items.map((item) => (
+    <div class="border border-line bg-surface p-[18px]">
+      <strong class="block text-[1.7rem] leading-none">{item.value}</strong>
+      <span class="mt-2 block text-muted">{item.label}</span>
+    </div>
+  ))}
+</div>

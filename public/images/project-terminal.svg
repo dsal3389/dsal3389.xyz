@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Terminal dashboard">
+  <rect width="1200" height="675" fill="#fbf1c7"/>
+  <rect x="86" y="78" width="1028" height="520" rx="8" fill="#282828"/>
+  <circle cx="130" cy="120" r="14" fill="#fb4934"/>
+  <circle cx="174" cy="120" r="14" fill="#fabd2f"/>
+  <circle cx="218" cy="120" r="14" fill="#83a598"/>
+  <path d="M136 202h166M136 258h312M136 314h236M136 370h444M136 426h300M136 482h514" stroke="#83a598" stroke-width="24" stroke-linecap="round"/>
+  <path d="M728 198h230M728 254h150M728 310h268M728 366h194" stroke="#b8bb26" stroke-width="24" stroke-linecap="round"/>
+</svg>

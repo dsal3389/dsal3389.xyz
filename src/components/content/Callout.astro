@@ -1,0 +1,20 @@
+---
+interface Props {
+  title?: string;
+  tone?: "note" | "ship" | "warn";
+}
+
+const { title = "Note", tone = "note" } = Astro.props;
+const toneClass = {
+  note: "border-l-accent-2",
+  ship: "border-l-accent-3",
+  warn: "border-l-accent"
+}[tone];
+---
+
+<aside class:list={["callout my-7 border border-l-[5px] border-line bg-surface px-5 py-[18px]", toneClass]}>
+  <strong class="mb-1.5 block">{title}</strong>
+  <div>
+    <slot />
+  </div>
+</aside>

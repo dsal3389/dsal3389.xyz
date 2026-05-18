@@ -1,0 +1,42 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  updatedDate?: Date;
+  tags?: string[];
+  heroImage?: string;
+}
+
+const { title, description, date, updatedDate, tags = [], heroImage } = Astro.props;
+const published = date.toLocaleDateString("en", {
+  month: "short",
+  day: "numeric",
+  year: "numeric"
+});
+---
+
+<BaseLayout title={`${title} | Daniel Sonbolian`} description={description} image={heroImage}>
+    <article class="pb-4">
+    <header class="py-4">
+      <div class="mx-auto max-w-[1120px] px-6 max-[760px]:px-[18px]">
+        <p class="m-0 font-mono text-[0.78rem] font-bold uppercase tracking-normal text-accent-2">{published}{updatedDate ? " - updated" : ""}</p>
+        <h1 class="mt-2.5 mb-[18px] max-w-[980px] text-[clamp(2.7rem,8vw,6.8rem)] leading-[0.95] tracking-normal">{title}</h1>
+        <p class="m-0 mb-6 max-w-[720px] text-[clamp(1.05rem,2vw,1.35rem)] text-muted">{description}</p>
+        {tags.length > 0 && (
+          <ul class="tag-list" aria-label="Tags">
+            {tags.map((tag) => <li class="tag">{tag}</li>)}
+          </ul>
+        )}
+      </div>
+      {heroImage && <img class="mt-[46px] aspect-[16/7] w-full border-y border-line object-cover" src={heroImage} alt="" />}
+    </header>
+    <div class="mx-auto max-w-[1120px] px-6 max-[760px]:px-[18px]">
+      <div class="prose">
+        <slot />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

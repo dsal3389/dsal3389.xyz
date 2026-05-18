@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img" aria-label="Abstract developer portrait">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fbf1c7"/>
+      <stop offset="0.48" stop-color="#f2e5bc"/>
+      <stop offset="1" stop-color="#d5c4a1"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" x2="1">
+      <stop offset="0" stop-color="#282828"/>
+      <stop offset="1" stop-color="#3c3836"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="900" fill="url(#bg)"/>
+  <path d="M780 0h620v900H632c130-148 166-304 108-470C680 258 694 115 780 0z" fill="#282828" opacity=".96"/>
+  <circle cx="1020" cy="324" r="132" fill="#ebdbb2"/>
+  <path d="M850 738c36-172 95-260 178-260h42c87 0 147 88 184 260z" fill="#ebdbb2"/>
+  <path d="M960 260c42-70 133-88 204-37 24 18 43 42 57 72-74-30-153-42-261-35z" fill="#cc241d"/>
+  <rect x="86" y="624" width="430" height="126" rx="8" fill="url(#panel)"/>
+  <path d="M130 672h132M130 704h244M130 736h174" stroke="#8ec07c" stroke-width="14" stroke-linecap="round"/>
+  <path d="M440 150h250M440 194h170M440 238h220" stroke="#427b58" stroke-width="18" stroke-linecap="round" opacity=".72"/>
+  <path d="M92 138l142 74-142 76M340 138l-142 74 142 76" fill="none" stroke="#79740e" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

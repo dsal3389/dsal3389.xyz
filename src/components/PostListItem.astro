@@ -1,0 +1,38 @@
+---
+import { Calendar } from "@lucide/astro";
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  date: Date;
+  tags?: string[];
+}
+
+const { href, title, description, date, tags = [] } = Astro.props;
+const formattedDate = date.toLocaleDateString("en", {
+  month: "short",
+  day: "numeric",
+  year: "numeric"
+});
+---
+
+<article class="border-line border p-8 bg-surface shadow-site">
+    <a href={href}>
+        <div class="grid grid-cols-[1fr_130px] pb-4 no-underline max-sm:grid-cols-1" >
+            <h3 class="m-0 mb-2 mr-4 text-[clamp(1.35rem,3vw,2.4rem)] leading-[1.05]">{title}</h3>
+            <time class="inline-flex items-center gap-[7px] font-mono text-[0.82rem] font-extrabold text-accent-2" datetime={date.toISOString()}>
+                <Calendar aria-hidden="true" size={15} stroke-width={2.4} />
+                {formattedDate}
+            </time>
+        </div>
+          {tags.length > 0 && (
+            <div class="pb-4">
+                <ul class="tag-list py-4" aria-label={`Tags for ${title}`}>
+                    {tags.map((tag) => <li class="tag">{tag}</li>)}
+                </ul>
+            </div>
+          )}
+        <p class="m-0 max-w-[720px] text-muted">{description}</p>
+    </a>
+</article>

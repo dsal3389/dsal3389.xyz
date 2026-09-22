@@ -1,0 +1,109 @@
+---
+import { renderWaves, WAVE_LAYERS } from '../lib/waves';
+
+const scenes = [
+  { variant: 'wide', columns: 160, rows: 58, width: 1440, height: 900 },
+  { variant: 'portrait', columns: 48, rows: 65, width: 390, height: 844 },
+].map((size) => ({ ...size, frame: renderWaves(size) }));
+
+const layerClasses = {
+  shadow: 'text-[#421414]',
+  red: 'text-[#9b2424]',
+  highlight: 'text-[#ed3b3b] [text-shadow:0_0_12px_#e32b2b38]',
+};
+---
+
+<div class="pointer-events-none fixed inset-0 -z-1 overflow-hidden select-none after:absolute after:inset-0 after:bg-wave-fade after:content-['']" data-waves aria-hidden="true">
+  {scenes.map(({ variant, columns, rows, frame }) => (
+    <div class:list={['absolute inset-0', variant === 'wide' ? 'wave-portrait:hidden' : 'hidden wave-portrait:block']} data-wave-scene={variant} style={`--columns: ${columns}; --rows: ${rows}`}>
+      {WAVE_LAYERS.map((layer) => <pre class:list={['absolute top-0 left-0 m-0 font-ascii text-[length:calc(100vw/var(--columns)/0.6)] leading-[calc(100dvh/var(--rows))] font-normal tracking-normal whitespace-pre', layerClasses[layer]]} data-wave-layer={layer}>{frame[layer]}</pre>)}
+    </div>
+  ))}
+</div>
+
+<script>
+  import { renderWaves, WAVE_LAYERS, RIPPLE_LIFETIME, type WaveSize, type WaveFrame, type WaveRipple } from '../lib/waves';
+
+  const backdrop = document.querySelector<HTMLElement>('[data-waves]');
+
+  if (backdrop) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const portrait = window.matchMedia('(max-aspect-ratio: 4/5)');
+    let size: WaveSize;
+    let layers: { key: keyof WaveFrame; element: HTMLElement }[] = [];
+    let frameId = 0;
+    let lastTime = 0;
+    let elapsed = 0;
+    let lastSize = '';
+    let ripples: WaveRipple[] = [];
+
+    function paint() {
+      if (!size) return;
+      const frame = renderWaves(size, elapsed, ripples);
+      for (const { key, element } of layers) element.textContent = frame[key];
+    }
+
+    function animate(now: number) {
+      frameId = 0;
+      if (reducedMotion.matches || document.hidden) return;
+      // Text frames need only 24 fps; keep the full field small on large monitors.
+      if (!lastTime || now - lastTime >= 1000 / 24) {
+        const delta = lastTime ? Math.min((now - lastTime) / 1000, 0.1) : 1 / 24;
+        elapsed += delta;
+        lastTime = now;
+        ripples = ripples.filter((point) => elapsed - point.born < RIPPLE_LIFETIME);
+        paint();
+      }
+      frameId = requestAnimationFrame(animate);
+    }
+
+    function syncMotion() {
+      cancelAnimationFrame(frameId);
+      frameId = 0;
+      lastTime = 0;
+      if (reducedMotion.matches) {
+        elapsed = 0;
+        ripples = [];
+        paint();
+      } else if (!document.hidden) {
+        frameId = requestAnimationFrame(animate);
+      }
+    }
+
+    function resize() {
+      const { width, height } = backdrop!.getBoundingClientRect();
+      const key = `${width}:${height}`;
+      if (!width || !height || lastSize === key) return;
+      lastSize = key;
+      ripples = [];
+      const fontSize = width < 600 ? 13 : 14;
+      size = {
+        width, height,
+        columns: Math.max(32, Math.min(220, Math.floor(width / (fontSize * 0.6)))),
+        rows: Math.max(18, Math.min(100, Math.floor(height / (fontSize * 1.15)))),
+      };
+      const scene = backdrop!.querySelector<HTMLElement>(`[data-wave-scene="${portrait.matches ? 'portrait' : 'wide'}"]`)!;
+      scene.style.setProperty('--columns', String(size.columns));
+      scene.style.setProperty('--rows', String(size.rows));
+      layers = WAVE_LAYERS.map((key) => ({ key, element: scene.querySelector<HTMLElement>(`[data-wave-layer="${key}"]`)! }));
+      paint();
+    }
+
+    function createRipple(event: MouseEvent) {
+      if (reducedMotion.matches || !size || event.button !== 0) return;
+      if (event.target instanceof Element && event.target.closest('a, button, input, textarea, select, [role="button"]')) return;
+      const rect = backdrop!.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) return;
+      ripples.push({ x: event.clientX - rect.left, y: event.clientY - rect.top, born: elapsed });
+      ripples = ripples.slice(-12);
+      paint();
+    }
+
+    document.addEventListener('click', createRipple);
+    document.addEventListener('visibilitychange', syncMotion);
+    reducedMotion.addEventListener('change', syncMotion);
+    new ResizeObserver(resize).observe(backdrop);
+    resize();
+    syncMotion();
+  }
+</script>

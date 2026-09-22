@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const dateFormat = new Intl.DateTimeFormat('en', {
+  month: 'short', day: '2-digit', timeZone: 'UTC',
+});
+---
+
+<section id="posts" class="scroll-mt-6 px-[var(--content-inset)] pt-[clamp(64px,8vw,112px)] pb-[clamp(80px,10vw,144px)] focus:outline-none" aria-label="Posts" tabindex="-1">
+  <div class="mx-auto max-w-[920px]">
+    {posts.length > 0 ? (
+      <ul class="m-0 grid list-none gap-5 p-0" data-post-list>
+        {posts.map(({ id, data }) => (
+          <li class="min-w-0">
+            <a
+              class="
+                group/post relative grid grid-cols-[96px_minmax(0,1fr)_32px] gap-8 border border-[#30262b] border-l-2 border-l-[#b95252] bg-black/92 p-8
+                transition-[border-color,background-color] duration-180 ease-[ease]
+                hover:border-[#6d363d] hover:border-l-red hover:bg-[#130c10]/96
+                focus-visible:border-[#6d363d] focus-visible:border-l-red focus-visible:bg-[#130c10]/96
+                mobile:grid-cols-[minmax(0,1fr)_24px] mobile:gap-x-4 mobile:gap-y-4 mobile:px-5 mobile:py-6 motion-reduce:transition-none
+              "
+              data-post-link
+              href={`/blog/${id}/`}
+            >
+              <time class="flex flex-col gap-1 border-r border-[#35292e] pt-1 text-[12px] leading-[1.6] whitespace-nowrap text-[#b8a6ad] mobile:col-span-2 mobile:flex-row mobile:gap-2 mobile:border-0 mobile:pt-0 mobile:text-[11px]" datetime={data.date.toISOString()}>
+                <span>{dateFormat.format(data.date)}</span>
+                <span class="text-muted">{data.date.getUTCFullYear()}</span>
+              </time>
+              <div class="min-w-0" data-post-summary>
+                <h2 class="m-0 text-[clamp(20px,1.8vw,26px)] leading-[1.4] font-normal tracking-[-0.035em] text-paper [overflow-wrap:anywhere] transition-colors duration-180 ease-[ease] group-hover/post:text-red group-focus-visible/post:text-red motion-reduce:transition-none">{data.title}</h2>
+                <p class="m-0 mt-3 text-[13px] leading-[1.8] text-[#aaa0a6]">{data.description}</p>
+                {data.tags.length > 0 && (
+                  <ul class="m-0 mt-5 flex list-none flex-wrap gap-x-4 gap-y-2 p-0 text-[10px] text-[#b8a6ad] [overflow-wrap:anywhere]" data-post-tags aria-label="Tags">
+                    {data.tags.map((tag) => <li class="before:mr-1 before:text-[#b95252] before:content-['/']">{tag}</li>)}
+                  </ul>
+                )}
+              </div>
+              <span class="pt-0.5 text-right text-[24px] leading-[1.4] text-[#b95252] transition-[color,translate] duration-180 ease-[ease] group-hover/post:translate-x-1 group-hover/post:text-red group-focus-visible/post:text-red mobile:text-[20px] motion-reduce:transition-none" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : <p class="py-8 text-[14px] text-muted">Nothing here yet. Check back soon.</p>}
+  </div>
+</section>

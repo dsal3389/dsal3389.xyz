@@ -1,0 +1,62 @@
+---
+const phrases = ['developer', 'car enthusiast', 'I use arch BTW'];
+---
+
+<p class="m-0 mt-6 min-h-[1.5em] text-[clamp(14px,1.3vw,18px)] leading-[1.5] tracking-normal text-[#b8b0b6] mobile:mt-5 mobile:text-[16px] short-landscape:mt-[14px] short-landscape:text-[14px]" data-description>
+  <span class="sr-only">{phrases.join(', ')}</span>
+  <span class="inline-flex min-w-[15ch] items-baseline whitespace-nowrap" data-typewriter data-phrases={JSON.stringify(phrases)} aria-hidden="true">
+    <span class="whitespace-pre" data-typewriter-text>{phrases[0]}</span><span class="ml-[0.12em] animate-caret text-red motion-reduce:animate-none" data-caret>_</span>
+  </span>
+</p>
+
+<script>
+  const typewriter = document.querySelector<HTMLElement>('[data-typewriter]');
+  const text = typewriter?.querySelector<HTMLElement>('[data-typewriter-text]');
+
+  if (typewriter && text) {
+    const phrases: string[] = JSON.parse(typewriter.dataset.phrases!);
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let phraseIndex = 0;
+    let characterCount = phrases[0]!.length;
+    let deleting = true;
+    let timer: number | undefined;
+
+    function schedule(delay: number) {
+      timer = window.setTimeout(tick, delay);
+    }
+
+    function tick() {
+      if (document.hidden || reducedMotion.matches) return;
+      const phrase = phrases[phraseIndex]!;
+      characterCount += deleting ? -1 : 1;
+      text!.textContent = phrase.slice(0, characterCount);
+
+      if (deleting && characterCount === 0) {
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        deleting = false;
+        schedule(300);
+      } else if (!deleting && characterCount === phrase.length) {
+        deleting = true;
+        schedule(1800);
+      } else {
+        schedule(deleting ? 45 : 90);
+      }
+    }
+
+    function syncMotion() {
+      window.clearTimeout(timer);
+      if (reducedMotion.matches) {
+        phraseIndex = 0;
+        characterCount = phrases[0]!.length;
+        deleting = true;
+        text!.textContent = phrases[0]!;
+      } else if (!document.hidden) {
+        schedule(deleting && characterCount === phrases[phraseIndex]!.length ? 1800 : 90);
+      }
+    }
+
+    reducedMotion.addEventListener('change', syncMotion);
+    document.addEventListener('visibilitychange', syncMotion);
+    syncMotion();
+  }
+</script>

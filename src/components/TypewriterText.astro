@@ -2,10 +2,10 @@
 const phrases = ['developer', 'car enthusiast', 'I use arch BTW'];
 ---
 
-<p class="m-0 mt-6 min-h-[1.5em] text-[clamp(14px,1.3vw,18px)] leading-[1.5] tracking-normal text-[#b8b0b6] mobile:mt-5 mobile:text-[16px] short-landscape:mt-[14px] short-landscape:text-[14px]" data-description>
+<p class="m-0 mt-6 min-h-[1.5em] text-[clamp(14px,1.3vw,18px)] leading-[1.5] tracking-normal text-secondary mobile:mt-5 mobile:text-[16px] short-landscape:mt-[14px] short-landscape:text-[14px]" data-description>
   <span class="sr-only">{phrases.join(', ')}</span>
   <span class="inline-flex min-w-[15ch] items-baseline whitespace-nowrap" data-typewriter data-phrases={JSON.stringify(phrases)} aria-hidden="true">
-    <span class="whitespace-pre" data-typewriter-text>{phrases[0]}</span><span class="ml-[0.12em] animate-caret text-red motion-reduce:animate-none" data-caret>_</span>
+    <span class="whitespace-pre" data-typewriter-text>{phrases[0]}</span><span class="ml-[0.12em] animate-caret text-accent motion-reduce:animate-none" data-caret>_</span>
   </span>
 </p>
 

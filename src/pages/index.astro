@@ -24,12 +24,12 @@ const socialLinks = [
 
   <main id="main" class="focus:outline-none" tabindex="-1">
     <section class="relative isolate h-svh overflow-clip supports-[height:100dvh]:h-dvh" data-hero aria-labelledby="intro-title">
-      <div class="absolute inset-x-[var(--page-padding)] top-1/2 -translate-y-1/2 text-[#ed3b3b] outline-none">
+      <div class="absolute inset-x-[var(--page-padding)] top-1/2 -translate-y-1/2 text-heading outline-none">
         <div class="ml-[5.1vw] mobile:ml-0">
-          <nav class="mb-4 flex flex-wrap items-center gap-x-6 gap-y-1 text-[12px] text-[#b8b0b6] short-landscape:mb-2" aria-label="Social links">
+          <nav class="mb-4 flex flex-wrap items-center gap-x-6 gap-y-1 text-[12px] text-secondary short-landscape:mb-2" aria-label="Social links">
             {socialLinks.map(({ label, href, icon }) => (
-              <a class="inline-flex min-h-11 items-center gap-2 transition-colors duration-180 ease-[ease] hover:text-red focus-visible:text-red motion-reduce:transition-none" href={href} target="_blank" rel="noopener noreferrer">
-                <svg class="size-4 shrink-0 fill-current text-red" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={icon} /></svg>
+              <a class="inline-flex min-h-11 items-center gap-2 transition-colors duration-180 ease-[ease] hover:text-accent focus-visible:text-accent motion-reduce:transition-none" href={href} target="_blank" rel="noopener noreferrer">
+                <svg class="size-4 shrink-0 fill-current text-accent" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={icon} /></svg>
                 {label}
                 <span class="sr-only">(opens in a new tab)</span>
               </a>
@@ -40,7 +40,7 @@ const socialLinks = [
         </div>
       </div>
 
-      <a class="absolute bottom-12 left-1/2 inline-flex size-12 -translate-x-1/2 items-center justify-center text-[28px] leading-none text-red transition-colors duration-180 ease-[ease] hover:text-paper mobile:bottom-7 short-landscape:bottom-4 motion-reduce:transition-none" data-scroll-link href="#posts" aria-label="View posts"><span aria-hidden="true">↓</span></a>
+      <a class="absolute bottom-12 left-1/2 inline-flex size-12 -translate-x-1/2 items-center justify-center text-[28px] leading-none text-accent transition-colors duration-180 ease-[ease] hover:text-foreground mobile:bottom-7 short-landscape:bottom-4 motion-reduce:transition-none" data-scroll-link href="#posts" aria-label="View posts"><span aria-hidden="true">↓</span></a>
     </section>
 
     <PostList />

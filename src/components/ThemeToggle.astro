@@ -1,0 +1,124 @@
+---
+const themes = [
+  { id: 'dark', label: 'Black and red', background: '#08090b', accent: '#f03535' },
+  { id: 'eggshell', label: 'Eggshell and blue', background: '#f7f3e8', accent: '#4285f4' },
+];
+---
+
+<div
+  class="fixed top-[max(16px,env(safe-area-inset-top))] right-[max(24px,env(safe-area-inset-right))] z-20"
+  data-theme-picker
+  hidden
+>
+  <button
+    type="button"
+    class="inline-flex size-11 cursor-pointer items-center justify-center border border-border bg-surface text-accent hover:border-accent focus-visible:border-accent"
+    data-theme-toggle
+    aria-label="Choose theme"
+    aria-expanded="false"
+    aria-controls="theme-options"
+  >
+    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" stroke="none" />
+    </svg>
+  </button>
+  <div
+    id="theme-options"
+    class="absolute top-full right-0 mt-2 flex flex-col gap-2 border border-border bg-surface p-2 shadow-lg"
+    role="group"
+    aria-label="Themes"
+    hidden
+  >
+    {themes.map(({ id, label, background, accent }) => (
+      <button
+        type="button"
+        class="inline-flex size-12 cursor-pointer items-center justify-center border-2 border-transparent hover:border-muted focus-visible:outline-offset-2 aria-pressed:border-accent"
+        data-theme-option={id}
+        aria-label={label}
+        aria-pressed="false"
+      >
+        <span class="size-8 border border-muted" style={`background: linear-gradient(135deg, ${background} 50%, ${accent} 50%)`} aria-hidden="true" />
+      </button>
+    ))}
+  </div>
+</div>
+
+<script>
+  const picker = document.querySelector<HTMLElement>('[data-theme-picker]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const panel = document.querySelector<HTMLElement>('#theme-options');
+  const options = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-theme-option]'));
+
+  function setOpen(open: boolean, restoreFocus = false) {
+    if (panel) panel.hidden = !open;
+    toggle?.setAttribute('aria-expanded', String(open));
+    if (restoreFocus) toggle?.focus();
+  }
+
+  function applyTheme(theme: string | null) {
+    const light = theme === 'eggshell';
+    document.documentElement.dataset.theme = light ? 'eggshell' : 'dark';
+    document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')!.content = light ? '#f7f3e8' : '#08090b';
+    document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]')!.content = light ? 'light' : 'dark';
+    for (const option of options) {
+      option.setAttribute('aria-pressed', String(option.dataset.themeOption === document.documentElement.dataset.theme));
+    }
+  }
+
+  if (picker && toggle && panel) {
+    applyTheme(document.documentElement.dataset.theme ?? null);
+    picker.hidden = false;
+    toggle.addEventListener('click', () => {
+      setOpen(Boolean(panel.hidden));
+    });
+    toggle.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        setOpen(true);
+        (options.find((option) => option.getAttribute('aria-pressed') === 'true') ?? options[0])?.focus();
+      }
+    });
+    for (const option of options) {
+      option.addEventListener('click', () => {
+        const theme = option.dataset.themeOption!;
+        applyTheme(theme);
+        try {
+          localStorage.setItem('site-theme', theme);
+        } catch {
+          // Switching still works when saving preferences is unavailable.
+        }
+        setOpen(false, true);
+      });
+    }
+    picker.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !panel.hidden) {
+        event.preventDefault();
+        setOpen(false, true);
+      }
+    });
+    panel.addEventListener('keydown', (event) => {
+      const index = options.indexOf(document.activeElement as HTMLButtonElement);
+      if (index < 0) return;
+      let next: number;
+      switch (event.key) {
+        case 'ArrowDown': next = (index + 1) % options.length; break;
+        case 'ArrowUp': next = (index - 1 + options.length) % options.length; break;
+        case 'Home': next = 0; break;
+        case 'End': next = options.length - 1; break;
+        default: return;
+      }
+      event.preventDefault();
+      options[next]?.focus();
+    });
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Node && !picker.contains(event.target)) setOpen(false);
+    });
+    document.addEventListener('focusin', (event) => {
+      if (event.target instanceof Node && !picker.contains(event.target)) setOpen(false);
+    });
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'site-theme' || event.key === null) applyTheme(event.newValue);
+    });
+  }
+</script>

@@ -9,21 +9,39 @@
 }
 
 @theme {
-  --color-black: #08090b;
-  --color-red: #f03535;
-  --color-paper: #efeced;
+  --color-surface: #08090b;
+  --color-accent: #f03535;
+  --color-foreground: #efeced;
   --color-muted: #969096;
+  --color-secondary: #b8b0b6;
+  --color-body: #c8bfc4;
+  --color-description: #aaa0a6;
+  --color-detail: #b8a6ad;
+  --color-footer: #93868d;
+  --color-border: #30262b;
+  --color-divider: #2c2428;
+  --color-date-border: #35292e;
+  --color-border-hover: #6d363d;
+  --color-accent-soft: #b95252;
+  --color-surface-hover: #130c10;
+  --color-code: #211a1e;
+  --color-heading: #ed3b3b;
+  --color-wave-shadow: #421414;
+  --color-wave-mid: #9b2424;
+  --color-wave-highlight: #ed3b3b;
+  --color-wave-glow: #e32b2b38;
+  --color-wave-mask: #000;
   --font-mono: 'Source Code Pro', 'Lucida Console', 'Courier New', monospace;
   --font-ascii: 'Courier New', Courier, monospace;
   --background-image-wave-fade: linear-gradient(
     to bottom,
-    #000 0%,
-    rgb(0 0 0 / 92%) 12%,
-    rgb(0 0 0 / 55%) 30%,
+    var(--color-wave-mask) 0%,
+    color-mix(in srgb, var(--color-wave-mask) 92%, transparent) 12%,
+    color-mix(in srgb, var(--color-wave-mask) 55%, transparent) 30%,
     transparent 50%,
     transparent 88%,
-    rgb(0 0 0 / 65%) 96%,
-    var(--color-black) 100%
+    color-mix(in srgb, var(--color-wave-mask) 65%, transparent) 96%,
+    var(--color-surface) 100%
   );
   --animate-caret: caret-blink 1s steps(1, end) infinite;
 
@@ -39,20 +57,52 @@
 @custom-variant wave-portrait (@media (max-aspect-ratio: 4/5));
 
 @layer base {
+  :root { color-scheme: dark; }
+  :root[data-theme='eggshell'] {
+    color-scheme: light;
+    --color-surface: #f7f3e8;
+    --color-accent: #1967d2;
+    --color-foreground: #202124;
+    --color-muted: #62666d;
+    --color-secondary: #545b66;
+    --color-body: #3c4043;
+    --color-description: #565c65;
+    --color-detail: #5c6370;
+    --color-footer: #62666d;
+    --color-border: #d5d8dd;
+    --color-divider: #d5d8dd;
+    --color-date-border: #d5d8dd;
+    --color-border-hover: #8aafe5;
+    --color-accent-soft: #4285f4;
+    --color-surface-hover: #edf2fa;
+    --color-code: #e5eaf1;
+    --color-heading: #1967d2;
+    --color-wave-shadow: #d5dfed;
+    --color-wave-mid: #95b8ef;
+    --color-wave-highlight: #4285f4;
+    --color-wave-glow: #4285f424;
+    --color-wave-mask: #f7f3e8;
+  }
   a { -webkit-tap-highlight-color: transparent; }
-  :focus-visible { @apply outline-1 outline-red outline-offset-7; }
+  :focus-visible { @apply outline-1 outline-accent outline-offset-7; }
+
+  :root[data-theme='eggshell'] .astro-code,
+  :root[data-theme='eggshell'] .astro-code span {
+    color: var(--shiki-light) !important;
+    background-color: var(--shiki-light-bg) !important;
+  }
 }
 
 @media (forced-colors: none) {
-  * { scrollbar-width: thin; scrollbar-color: #b95252 var(--color-black); }
+  * { scrollbar-width: thin; scrollbar-color: var(--color-accent-soft) var(--color-surface); }
 
   @supports selector(::-webkit-scrollbar) {
     * { scrollbar-width: auto; scrollbar-color: auto; }
     ::-webkit-scrollbar { width: 10px; height: 10px; }
-    ::-webkit-scrollbar-track { background: var(--color-black); }
-    ::-webkit-scrollbar-thumb { background: #b95252; border: 2px solid var(--color-black); border-radius: 0; }
-    ::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:active { background: var(--color-red); }
-    ::-webkit-scrollbar-corner { background: var(--color-black); }
+    ::-webkit-scrollbar-track { background: var(--color-surface); }
+    ::-webkit-scrollbar-thumb { background: var(--color-accent-soft); border: 2px solid var(--color-surface); border-radius: 0; }
+    ::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:active { background: var(--color-accent); }
+    ::-webkit-scrollbar-corner { background: var(--color-surface); }
     ::-webkit-scrollbar-button { display: none; }
   }
 }

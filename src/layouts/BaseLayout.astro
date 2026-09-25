@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.astro';
 
 interface Props {
   title?: string;
@@ -15,7 +16,7 @@ const {
 <!doctype html>
 <html
   lang="en"
-  class="m-0 min-h-full w-full scroll-smooth [color-scheme:dark] [font-synthesis:none] [--page-padding:clamp(24px,4.2vw,72px)] [--content-inset:calc(var(--page-padding)+5.1vw)] selection:bg-red selection:text-black mobile:[--content-inset:var(--page-padding)] motion-reduce:scroll-auto"
+  class="m-0 min-h-full w-full scroll-smooth [font-synthesis:none] [--page-padding:clamp(24px,4.2vw,72px)] [--content-inset:calc(var(--page-padding)+5.1vw)] selection:bg-accent selection:text-surface mobile:[--content-inset:var(--page-padding)] motion-reduce:scroll-auto"
 >
   <head>
     <meta charset="UTF-8" />
@@ -23,6 +24,18 @@ const {
     <meta name="description" content={description} />
     <meta name="theme-color" content="#08090b" />
     <meta name="color-scheme" content="dark" />
+    <script is:inline>
+      // Restore the palette before the page paints, including on article navigation.
+      try {
+        if (localStorage.getItem('site-theme') === 'eggshell') {
+          document.documentElement.dataset.theme = 'eggshell';
+          document.querySelector('meta[name="theme-color"]').content = '#f7f3e8';
+          document.querySelector('meta[name="color-scheme"]').content = 'light';
+        }
+      } catch {
+        // Storage can be unavailable in private or restricted browsing contexts.
+      }
+    </script>
     <link rel="preload" href="/fonts/source-code-pro-regular.otf" as="font" type="font/otf" crossorigin />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
@@ -32,8 +45,9 @@ const {
     <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
     <title>{title}</title>
   </head>
-  <body class="isolate m-0 min-h-full w-full bg-black font-mono text-paper antialiased">
-    <a class="fixed top-4 left-6 z-10 -translate-y-[180%] bg-red px-4 py-3 text-black focus:translate-y-0" href="#main">Skip to content</a>
+  <body class="isolate m-0 min-h-full w-full bg-surface font-mono text-foreground antialiased">
+    <a class="fixed top-4 left-6 z-10 -translate-y-[180%] bg-accent px-4 py-3 text-surface focus:translate-y-0" href="#main">Skip to content</a>
+    <ThemeToggle />
     <slot />
   </body>
 </html>

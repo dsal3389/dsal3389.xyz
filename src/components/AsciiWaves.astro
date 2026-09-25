@@ -7,9 +7,9 @@ const scenes = [
 ].map((size) => ({ ...size, frame: renderWaves(size) }));
 
 const layerClasses = {
-  shadow: 'text-[#421414]',
-  red: 'text-[#9b2424]',
-  highlight: 'text-[#ed3b3b] [text-shadow:0_0_12px_#e32b2b38]',
+  shadow: 'text-wave-shadow',
+  red: 'text-wave-mid',
+  highlight: 'text-wave-highlight [text-shadow:0_0_12px_var(--color-wave-glow)]',
 };
 ---
 
@@ -27,13 +27,15 @@ const layerClasses = {
   const backdrop = document.querySelector<HTMLElement>('[data-waves]');
 
   if (backdrop) {
+    // Pick a different point in the original animation on each page load.
+    const startTime = Math.random() * 1000;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const portrait = window.matchMedia('(max-aspect-ratio: 4/5)');
     let size: WaveSize;
     let layers: { key: keyof WaveFrame; element: HTMLElement }[] = [];
     let frameId = 0;
     let lastTime = 0;
-    let elapsed = 0;
+    let elapsed = startTime;
     let lastSize = '';
     let ripples: WaveRipple[] = [];
 
@@ -62,7 +64,7 @@ const layerClasses = {
       frameId = 0;
       lastTime = 0;
       if (reducedMotion.matches) {
-        elapsed = 0;
+        elapsed = startTime;
         ripples = [];
         paint();
       } else if (!document.hidden) {

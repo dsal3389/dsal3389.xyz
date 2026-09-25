@@ -17,10 +17,10 @@ const date = new Intl.DateTimeFormat('en', {
 ---
 
 <BaseLayout title={`${post.data.title} — Daniel Sonbolian`} description={post.data.description}>
-  <main id="main" class="mx-auto w-[min(100%-2*var(--page-padding),800px)] pt-16 pb-20 focus:outline-none mobile:pt-8" data-article tabindex="-1">
-    <a class="inline-flex items-center gap-3 text-[13px] text-muted hover:text-red" data-back-link href="/#posts"><span aria-hidden="true">←</span> All posts</a>
+  <main id="main" class="mx-auto w-[min(100%-2*var(--page-padding),800px)] pt-24 pb-20 focus:outline-none" data-article tabindex="-1">
+    <a class="inline-flex items-center gap-3 text-[13px] text-muted hover:text-accent" data-back-link href="/#posts"><span aria-hidden="true">←</span> All posts</a>
     <article>
-      <header class="mt-16 mb-12 border-b border-[#2c2428] pb-9 mobile:mt-12">
+      <header class="mt-16 mb-12 border-b border-divider pb-9 mobile:mt-12">
         <time class="text-[12px] text-muted" datetime={post.data.date.toISOString()}>{date}</time>
         <h1 class="my-5 text-[clamp(28px,4vw,44px)] leading-[1.25] font-normal tracking-[-0.045em] [overflow-wrap:anywhere]">{post.data.title}</h1>
         <p class="text-[14px] leading-[1.8] text-muted">{post.data.description}</p>
@@ -28,18 +28,18 @@ const date = new Intl.DateTimeFormat('en', {
       <div
         data-article-content
         class="
-          text-[15px] leading-[1.9] text-[#c8bfc4] [overflow-wrap:anywhere] [&>*+*]:mt-6
-          [&_h2]:mt-12 [&_h2]:text-[25px] [&_h2]:leading-[1.4] [&_h2]:font-normal [&_h2]:text-paper
-          [&_h3]:mt-12 [&_h3]:text-[20px] [&_h3]:leading-[1.4] [&_h3]:font-normal [&_h3]:text-paper
-          [&_a]:text-red [&_a]:underline [&_a]:underline-offset-4
-          [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_pre]:border [&_pre]:border-[#2c2428] [&_pre]:p-5 [&_pre]:text-[12px] [&_pre]:leading-[1.7]
-          [&_code]:font-mono [&_:not(pre)>code]:bg-[#211a1e] [&_:not(pre)>code]:px-[5px] [&_:not(pre)>code]:py-[2px] [&_:not(pre)>code]:text-paper
+          text-[15px] leading-[1.9] text-body [overflow-wrap:anywhere] [&>*+*]:mt-6
+          [&_h2]:mt-12 [&_h2]:text-[25px] [&_h2]:leading-[1.4] [&_h2]:font-normal [&_h2]:text-foreground
+          [&_h3]:mt-12 [&_h3]:text-[20px] [&_h3]:leading-[1.4] [&_h3]:font-normal [&_h3]:text-foreground
+          [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-4
+          [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_pre]:border [&_pre]:border-divider [&_pre]:p-5 [&_pre]:text-[12px] [&_pre]:leading-[1.7]
+          [&_code]:font-mono [&_:not(pre)>code]:bg-code [&_:not(pre)>code]:px-[5px] [&_:not(pre)>code]:py-[2px] [&_:not(pre)>code]:text-foreground
           [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6
-          [&_blockquote]:border-l-2 [&_blockquote]:border-red [&_blockquote]:pl-5
-          [&_hr]:my-10 [&_hr]:border-0 [&_hr]:border-t [&_hr]:border-[#2c2428]
+          [&_blockquote]:border-l-2 [&_blockquote]:border-accent [&_blockquote]:pl-5
+          [&_hr]:my-10 [&_hr]:border-0 [&_hr]:border-t [&_hr]:border-divider
         "
       ><Content /></div>
     </article>
-    <a class="mt-16 inline-flex items-center gap-3 text-[13px] text-muted hover:text-red" data-back-link href="/#posts"><span aria-hidden="true">←</span> All posts</a>
+    <a class="mt-16 inline-flex items-center gap-3 text-[13px] text-muted hover:text-accent" data-back-link href="/#posts"><span aria-hidden="true">←</span> All posts</a>
   </main>
 </BaseLayout>
